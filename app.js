@@ -19,14 +19,14 @@ Mode.addEventListener('click' , function(e){
 
 let Username = document.getElementById('userName') //select input
 let Password = document.getElementById('password') //select input
-let submit = document.getElementById('submit') //select submit
-let userArr = []
-let userNameArr = []
-let passwordArr = []
+let submit = document.getElementById('submit')     //select submit
+
+let userNameArr = []                               // ARR for ERROR 
+let passwordArr = []                               // ARR for ERROR
 
 
 
-Username.addEventListener('blur' , function(e){                         //creat error for Duplicate username
+Username.addEventListener('blur' , function(e){    //creat error for Duplicate username
     if(userNameArr.includes(e.target.value)){
         alert('this name is already taken,please choose another name')
     }
@@ -40,17 +40,24 @@ submit.addEventListener('click' , function(e){
     userNameArr.push(Username.value)
     passwordArr.push(Password.value)
     
-    let userObj = {}                        
+    let userObj = {}                              //creat object for uniqe user and push to userArr
     userObj.name = Username.value
     userObj.password = Password.value
-    userArr.push(userObj)
-    console.log(userArr)
+    // userArr.push(userObj)
     
-    let struserArr = JSON.stringify(userArr) //save in localstorage
-    localStorage.setItem('DYKO' , struserArr) //save in localstorage
-    console.log(userNameArr)
+    // let struserArr = JSON.stringify(userArr)       //save in localstorage
+    // localStorage.setItem('DYKO' , struserArr)      //save in localstorage
 
+
+    let OldData = JSON.parse(localStorage.getItem('DYKO'))
+    OldData.push(userObj)
+
+    let AgainLocal = localStorage.setItem('DYKO' , JSON.stringify(OldData))
 })
+
+let allUsers = JSON.parse(localStorage.getItem('DYKO'))
+console.log(allUsers)
+
 
 
 
